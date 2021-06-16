@@ -1,4 +1,4 @@
-<?php $this->layout('../layouts/layoutAdmin', ['title' => 'Categorias']) ?>
+<?php $this->layout('../layouts/layoutAdmin', ['title' => 'Productos']) ?>
 <?php $this->start('contenido') ?>
 <div class="page-content bg-light">
     <section>
@@ -7,8 +7,8 @@
                 <div class="col-lg-12 mt-2">
                     <div class="row">
                         <div class="col-lg-6 mb-2">
-                            <a class="btn btn-dark" href="<?= URL . 'categoria/detail'?>"  data-target=""><i class="fas fa-plus-circle"></i> Nuevo</a>
-                            <a class="btn btn-danger" href="<?= URL . 'categoria/baja'?>"><i class="fas fa-user-slash"></i> Inactivos</a>
+                            <a class="btn btn-dark" href="<?= URL . 'producto/detail'?>"  data-target=""><i class="fas fa-plus-circle"></i> Nuevo</a>
+                            <a class="btn btn-danger" href="<?= URL . 'producto/baja'?>"><i class="fas fa-user-slash"></i> Inactivos</a>
                         </div>
                     </div>
                     <div class="table-responsive mt-4">
@@ -16,8 +16,11 @@
                             <thead class="thead-dark" style="text-align:center;">
                                 <tr>
                                     <th>ID</th>
+                                    <th>Codigo</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
                                     <th>Acciones</th>
         
                                 </tr>
@@ -26,12 +29,15 @@
                                 <?php foreach ($data as $key) { ?>
                                     <tr>
                                     <td> <?= $this->e($key->id) ?></td>
+                                    <td> <?= $this->e($key->codigo) ?></td>
                                     <td> <?= $this->e($key->nombre) ?></td>
                                     <td> <?= $this->e($key->descripcion) ?></td>
+                                    <td> <?= $this->e($key->precio) ?></td>
+                                    <td> <?= $this->e($key->stock) ?></td>
                                 
                                         <td style="text-align:center;">
-                                            <a href="<?= URL . "categoria/detail/{$this->e($key->id)}" ?>" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <form action="<?= URL . "categoria/delete/{$this->e($key->id)}" ?>" method="post" class="d-inline elim">
+                                            <a href="<?= URL . "producto/detail/{$this->e($key->id)}" ?>" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                            <form action="<?= URL . "producto/delete/{$this->e($key->id)}" ?>" method="post" class="d-inline elim">
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>

@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 use Libs\Controller;
-use App\Daos\CategoriaDAO;
+use App\Daos\ProductoDAO;
 use stdClass;
 
-class CategoriaController extends Controller
+class ProductoController extends Controller
 {
   public function __construct() {
-    $this->loadTemplate('categoria');
-    $this->loadDAO('categoria');
+    $this->loadTemplate('producto');
+    $this->loadDAO('producto');
   }
 
   public function index()
@@ -29,8 +29,11 @@ class CategoriaController extends Controller
     $obj = new stdClass();
 
     $obj->id = isset($_POST['id']) ? intval($_POST['id']): 0;
+    $obj->codigo = isset($_POST['codigo']) ? $_POST['codigo'] : '';
     $obj->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-    $obj->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+    $obj->descripcion = isset($_POST['desc']) ? $_POST['desc'] : '';
+    $obj->precio = isset($_POST['precio']) ? $_POST['precio'] : 0;
+    $obj->stock = isset($_POST['stock']) ? $_POST['stock'] : 0;
     
     if (isset($_POST['estado'])) {
       if ($_POST['estado'] == 'on') {
@@ -49,7 +52,7 @@ class CategoriaController extends Controller
     }
    
 
-   header('Location:' .URL .'categorias/index');
+   header('Location:' .URL .'producto/index');
   }
   public function delete($param = null)
   {
@@ -58,6 +61,6 @@ class CategoriaController extends Controller
     if($id>0){
       $this->dao->delete($id);
     }
-    header('Location:' .URL .'categorias/index');
+    header('Location:' .URL .'categoria/index');
   }
 }

@@ -18,7 +18,7 @@
                         <li><a href="<?= URL ?>Ventas/lista"><i class="fas fa-list-ul"></i> Ventas</a></li>
                     </ul>
                 </li>
-                <li><a href="<?= URL ?>Productos/Listar"> <i class="fab fa-product-hunt"></i> <strong class="text-white"> Productos </strong></a></li>
+                <li><a href="<?= URL .'producto/index'?>"> <i class="fab fa-product-hunt"></i> <strong class="text-white"> Productos </strong></a></li>
                 <li><a href="<?= URL .'categoria/index'?>"> <i class="fab fa-github-alt"></i> <strong class="text-white"> Categorias </strong></a></li>
                 <li><a href="<?= URL ?>Clientes/Listar"> <i class="fas fa-users"></i> <strong class="text-white"> Clientes </strong></a></li>
                 <?php //if($_SESSION['rol'] == "Administrador") ?>

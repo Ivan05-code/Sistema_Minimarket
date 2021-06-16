@@ -1,76 +1,77 @@
 <?php
 namespace App\Daos;
 use Libs\Dao;
+use App\Models\ProductoModel;
 use stdClass;
 class ProductoDAO extends Dao
 {
   public function __construct() {
-    $this->loadConnection();
+    $this->loadEloquent();
   }
 
-  public function getAll()
+  public function getAll($estado)
   {
-    $sql = "SELECT id, nombre, descripcion,estado FROM  categoria ";
-   
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
-    return $result;
+    $model = ProductoModel::where('estado', $estado)
+    ->orderBy('id', 'DESC')
+    ->get();
+    return $model;
+    
   }
 
   public function get(int $id)
   {
-    
-    if ($id>0) {
-      $sql = "SELECT id, nombre, descripcion,estado FROM categoria where id = ?";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(1, $id,\PDO::PARAM_INT);
-      $stmt->execute();
-      $result = $stmt->fetch(\PDO::FETCH_OBJ);
-    }else{
-      $result = new stdClass();
-      $result->id=0;
-      $result->nombre='';
-      $result->descripcion='';
-      $result->estado = 0;
+    $model = ProductoModel::find($id);
+
+    if (is_null($model)) {
+      $model = new stdClass();
+      $model->id=0;
+      $model->codigo='';
+      $model->nombre='';
+      $model->descripcion='';
+      $model->precio=0;
+      $model->stock=0;
+      $model->estado = 0;
     }
-    return $result;
+    return $model;
   }
   public function create($obj){
    
-      $sql = "INSERT INTO categoria(nombre, descripcion,estado) VALUES (?,?,?)";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(1, $obj->nombre,\PDO::PARAM_STR);
-      $stmt->bindParam(2, $obj->descripcion,\PDO::PARAM_STR);
-      $stmt->bindParam(3, $obj->estado,\PDO::PARAM_BOOL);
-  
-      return $stmt->execute();;
+    $model = new ProductoModel();
+    $model->id = $obj->id;
+    $model->codigo = $obj->codigo;
+    $model->nombre = $obj->nombre;
+    $model->descripcion = $obj->descripcion;
+    $model->precio = $obj->precio;
+    $model->stock = $obj->stock;
+    $model->estado = $obj->estado;
+
+      return $model->save();
   }
   public function update($obj){
    
-    $sql = "UPDATE categoria SET nombre=?, descripcion=?,estado=? WHERE id=?";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindParam(1, $obj->nombre,\PDO::PARAM_STR);
-    $stmt->bindParam(2, $obj->descripcion,\PDO::PARAM_STR);
-    $stmt->bindParam(3, $obj->estado,\PDO::PARAM_BOOL);
-    $stmt->bindParam(4, $obj->id,\PDO::PARAM_INT);
+    $model = ProductoModel::find($obj->$id);
+    $model->id = $obj->id;
+    $model->codigo = $obj->codigo;
+    $model->nombre = $obj->nombre;
+    $model->descripcion = $obj->descripcion;
+    $model->precio = $obj->precio;
+    $model->stock = $obj->stock;
+    $model->estado = $obj->estado;
 
-    return $stmt->execute();
+      return $model->save();
   }
   public function delete(int $id){
    
-    $sql = "DELETE FROM categoria WHERE id=?";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindParam(1,$id,\PDO::PARAM_INT);
-    return $stmt->execute();
+    $model = ProductoModel::find($id);
+
+    return $model->delete();
   }
   public function baja(int $id){
    
-    $sql = "UPDATE categoria SET estado=0 WHERE id=?";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindParam(1,$id,\PDO::PARAM_INT);
+    $model = CategoriaModel::find($obj->id);
+    $model->estado = false;
 
-    return $stmt->execute();
+    return $model->save();
   }
 
 }
