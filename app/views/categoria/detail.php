@@ -28,15 +28,20 @@
                                 <input id="descripcion" class="form-control" type="text" name="descripcion" 
                                         value="<?= $data->descripcion ?>">
                             </div>
-                            <div class="form-gruop">
+                            <div class="row">
                                 <div class="col-lg-4">
-                                <label>Estado<input type="checkbox" name="estado" <?= ($data->estado ==1)? 'checked': '' ?>></label>
+                                    <div class="form-gruop">
+                                
+                                    <label>Estado<input type="checkbox" name="estado" <?= ($data->estado ==1)? 'checked': '' ?>></label>
+                                    </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8" style="color:azure;">
                                         <div id="mis_errores">
                                         </div>
                                 </div>
-                            </div>                       
+                            
+                            </div> 
+                                                      
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-primary" id="submit"  type="submit">Guardar</button>

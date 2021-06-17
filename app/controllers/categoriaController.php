@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use Libs\Controller;
 use App\Daos\CategoriaDAO;
+use GUMP;
 use stdClass;
 
 class CategoriaController extends Controller
@@ -26,29 +27,59 @@ class CategoriaController extends Controller
   }
   public function save()
   {
+    $validar = $this->valida($_POST);
+
+    $status = $validar['status'];
+    $data = $validar['data'];
     $obj = new stdClass();
 
-    $obj->id = isset($_POST['id']) ? intval($_POST['id']): 0;
-    $obj->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-    $obj->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-    if (isset($_POST['estado'])) {
+    if ($status == true) 
+    {
+      $obj->id = isset($_POST['id']) ? intval($_POST['id']): 0;
+      $obj->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+      $obj->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+    
+      if (isset($_POST['estado'])) {
       if ($_POST['estado'] == 'on') {
           $obj->estado = true;
       } else {
           $obj->estado = false;
       }
-    } else {
+      } else {
       $obj->estado = false;
-    }
+      }
  
-    if ($obj->id > 0) {
+      if ($obj->id > 0) {
       $this->dao->update($obj);
-    }else{
+      }else{
       $this->dao->create($obj);
+      }
+     if($rpt){
+        $response =[
+          'success' => 1,
+          'message' =>'Categoria guardada correctamente',
+          'redirection' => URL .'categoria/index'
+        ];
+      }else{
+        $response =[
+          'success' => 0,
+          'message' =>'Error al guardar datos',
+          'redirection' => ''
+        ];
+      }
+    }else
+    {
+      $response =[
+        'success' => -1,
+        'message' =>$data,
+        'redirection' => ''
+      ];
     }
+
+    echo json_encode($response);
    
 
-   header('Location:' .URL .'categoria/index');
+   //header('Location:' .URL .'categoria/index');
   }
   public function delete($param = null)
   {
@@ -80,4 +111,29 @@ class CategoriaController extends Controller
       header('Location:' .URL .'categoria/baja');
     }  
   }
+  public function valida( $datos )
+  {
+      $gump = new GUMP('es');
+      $gump->validation_rules([
+        'nombre' => 'required|max_len,100',
+        'descripcion' => 'min_len,5|max_len,50'
+      ]);
+
+      $validar = $gump->run($datos);
+
+      if ($gump->errors()) {
+        $response = [
+          'status' => false,
+          'data' => $gump->get_errors_array()
+        ];
+      }else{
+        $response = [
+          'status' => true,
+          'data' => $validar
+        ];
+      }
+      return $response;
+
+  }
+ 
 }
