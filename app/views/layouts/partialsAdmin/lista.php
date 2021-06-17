@@ -24,7 +24,7 @@
                 <?php //if($_SESSION['rol'] == "Administrador") ?>
 				<li><a href="<?= URL .'usuario/index'?>"> <i class="fas fa-user"></i> <strong class="text-white"> Usuarios </strong></a></li>
  
-				<li><a href="<?= URL .'configuracion/index'?>""> <i class="fas fa-cogs"></i> <strong class="text-white"> Configuración </strong></a></li>
+				<li><a href="<?= URL .'desarrollador/index'?>""> <i class="fas fa-cogs"></i> <strong class="text-white"> Desarrollador </strong></a></li>
                 <?php  ?>
 				<li><a href="#dropdownCompras" aria-expanded="false" data-toggle="collapse"> <i class="fas fa-truck"></i> <strong class="text-white"> Compras</strong></a>
                     <ul id="dropdownCompras" class="collapse list-unstyled ">
