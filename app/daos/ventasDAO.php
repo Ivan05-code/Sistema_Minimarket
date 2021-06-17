@@ -1,9 +1,9 @@
 <?php
 namespace App\Daos;
 use Libs\Dao;
-use App\Models\ProductoModel;
+use App\Models\VentasModel;
 use stdClass;
-class ProductoDAO extends Dao
+class VentasDAO extends Dao
 {
   public function __construct() {
     $this->loadEloquent();
@@ -11,8 +11,8 @@ class ProductoDAO extends Dao
 
   public function getAll($estado)
   {
-    
-    $model = ProductoModel::with('categoria')->where('estado', $estado)
+    //with('categoria')->
+    $model = VentasModel::with('usuario','cliente')->where('estado', $estado)
     ->orderBy('id', 'DESC')
     ->get();
 
@@ -22,58 +22,52 @@ class ProductoDAO extends Dao
 
   public function get(int $id)
   {
-    $model = ProductoModel::find($id);
+    $model = VentasModel::find($id);
 
     if (is_null($model)) {
       $model = new stdClass();
       $model->id=0;
-      $model->codigo='';
-      $model->idCat=0; 
-      $model->nombre='';
-      $model->descripcion='';
-      $model->precio=0;
-      $model->stock=0;
+      $model->idUsuario=0;
+      $model->idCliente=0; 
+      $model->fecha='';
+      $model->total=0;
       $model->estado = 0;
     }
     return $model;
   }
   public function create($obj){
    
-    $model = new ProductoModel();
+    $model = new VentasModel();
     $model->id = $obj->id;
-    $model->codigo = $obj->codigo;
-    $model->idCat=$obj->idCat;
-    $model->nombre = $obj->nombre;
-    $model->descripcion = $obj->descripcion;
-    $model->precio = $obj->precio;
-    $model->stock = $obj->stock;
+    $model->idUsuario = $obj->idUsuario;
+    $model->idCliente=$obj->idCliente;
+    $model->fecha = $obj->fecha;
+    $model->total = $obj->total;
     $model->estado = $obj->estado;
 
       return $model->save();
   }
   public function update($obj){
    
-    $model = ProductoModel::find($obj->$id);
+    $model = VentasModel::find($obj->$id);
     $model->id = $obj->id;
-    $model->codigo = $obj->codigo;
-    $model->idCat=$obj->idCat;
-    $model->nombre = $obj->nombre;
-    $model->descripcion = $obj->descripcion;
-    $model->precio = $obj->precio;
-    $model->stock = $obj->stock;
+    $model->idUsuario = $obj->idUsuario;
+    $model->idCliente=$obj->idCliente;
+    $model->fecha = $obj->fecha;
+    $model->total = $obj->total;
     $model->estado = $obj->estado;
 
       return $model->save();
   }
   public function delete(int $id){
    
-    $model = ProductoModel::find($id);
+    $model = VentasModel::find($id);
 
     return $model->delete();
   }
   public function baja(int $id){
    
-    $model = ProductoModel::find($id);
+    $model = VentasModel::find($id);
     $model->estado = false;
 
     return $model->save();

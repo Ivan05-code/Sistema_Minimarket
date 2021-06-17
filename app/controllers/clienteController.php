@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 use Libs\Controller;
-use App\Daos\ProductoDAO;
+use App\Daos\ClienteDAO;
 use stdClass;
 
-class ProductoController extends Controller
+class ClienteController extends Controller
 {
   public function __construct() {
-    $this->loadTemplate('producto');
-    $this->loadDAO('producto');
+    $this->loadTemplate('cliente');
+    $this->loadDAO('cliente');
   }
 
   public function index()
@@ -22,11 +22,7 @@ class ProductoController extends Controller
     $id = isset($param[0]) ? $param[0] : 0;
     $data = $this->dao->get($id);
 
-    $this->loadDAO('categoria');
-    $cate = $this->dao->getAll(true);
-    $this->loadDAO('producto');
-
-    echo $this->templates->render('detail',['data' => $data, 'cate'=>$cate]);
+    echo $this->templates->render('detail',['data' => $data]);
     
   }
   public function save()
@@ -34,12 +30,11 @@ class ProductoController extends Controller
     $obj = new stdClass();
 
     $obj->id = isset($_POST['id']) ? intval($_POST['id']): 0;
-    $obj->codigo = isset($_POST['codigo']) ? $_POST['codigo'] : '';
-    $obj->idCat = isset($_POST['idCat']) ? $_POST['idCat']: 0;
+    $obj->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
     $obj->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-    $obj->descripcion = isset($_POST['desc']) ? $_POST['desc'] : '';
-    $obj->precio = isset($_POST['precio']) ? $_POST['precio'] : 0;
-    $obj->stock = isset($_POST['stock']) ? $_POST['stock'] : 0;
+    $obj->direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
+    $obj->telefono = isset($_POST['telf']) ? $_POST['telf'] : 0;
+   
     
     if (isset($_POST['estado'])) {
       if ($_POST['estado'] == 'on') {
@@ -58,7 +53,7 @@ class ProductoController extends Controller
     }
    
 
-   header('Location:' .URL .'producto/index');
+   header('Location:' .URL .'cliente/index');
   }
   public function delete($param = null)
   {
@@ -67,7 +62,7 @@ class ProductoController extends Controller
     if($id>0){
       $this->dao->delete($id);
     }
-    header('Location:' .URL .'producto/index');
+    header('Location:' .URL .'cliente/index');
   }
   public function baja($param = null)
   {
@@ -75,7 +70,7 @@ class ProductoController extends Controller
 
     if($id>0){
       $this->dao->baja($id);
-      header('Location:' .URL .'producto/baja');
+      header('Location:' .URL .'cliente/baja');
     }else{
       $data = $this->dao->getAll(false);
       echo $this->templates->render('baja',['data' => $data]);
@@ -87,7 +82,7 @@ class ProductoController extends Controller
 
     if($id>0){
       $this->dao->alta($id);
-      header('Location:' .URL .'producto/baja');
+      header('Location:' .URL .'cliente/baja');
     }  
   }
 }

@@ -24,12 +24,14 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
     <body>
-    
+        <div class="body-wrapper">
         <?php include_once MAINPATH . 'app/views/layouts/partialsAdmin/header.php' ?>
         <?php include_once MAINPATH . 'app/views/layouts/partialsAdmin/lista.php' ?>
         <?= $this->section('contenido') ?>
         <?php include_once MAINPATH . 'app/views/layouts/partialsAdmin/footer.php' ?>
-        
+        </div>
+
+        <?= $this->section('myModal')?>
         <!-- JavaScript files-->
         <script src="<?= URL . 'js/jquery.min.js'?>"></script>
         <script src="<?= URL . 'js/bootstrap.bundle.min.js'?>"></script>
@@ -70,6 +72,7 @@
 				});
             });
         </script>
+        <?= $this->section('scripts')?>
     </body>
 
 </html>

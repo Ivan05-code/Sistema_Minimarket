@@ -3,8 +3,10 @@
 namespace App\Models;
 use \Illuminate\Database\Eloquent\Model;
 
-class CategoriaModel extends Model
+class ClienteModel extends Model
 {
-    protected  $table = "categorias";
+    protected  $table = "clientes";
     protected $primaryKey = "id";
+
+   
 }

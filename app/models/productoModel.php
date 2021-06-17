@@ -7,4 +7,9 @@ class ProductoModel extends Model
 {
     protected  $table = "productos";
     protected $primaryKey = "id";
+
+    public function categoria()
+    {
+        return $this->belongsTo(CategoriaModel::class, 'idCat', 'id');
+    }
 }

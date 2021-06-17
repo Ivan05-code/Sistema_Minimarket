@@ -11,8 +11,7 @@ class CategoriaDAO extends Dao
   }
 
   public function getAll($estado)
-  {
-    
+  { 
     $model = CategoriaModel::where('estado', $estado)
     ->orderBy('id', 'DESC')
     ->get();
@@ -22,7 +21,6 @@ class CategoriaDAO extends Dao
   public function get(int $id)
   {
     $model = CategoriaModel::find($id);
-
 
     if (is_null($model)) {
       $model = new stdClass();
@@ -61,13 +59,13 @@ class CategoriaDAO extends Dao
   }
   public function baja(int $id){
    
-      $model = CategoriaModel::find($obj->id);
+      $model = CategoriaModel::find($id);
       $model->estado= false;
       
       return $model->save();
   }
-  public function alta(){
-      $model = CategoriaModel::find($obj->id);
+  public function alta(int $int){
+      $model = CategoriaModel::find($id);
       $model->estado= true;
       
       return $model->save();

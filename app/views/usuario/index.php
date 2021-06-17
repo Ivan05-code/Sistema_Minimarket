@@ -1,4 +1,4 @@
-<?php $this->layout('../layouts/layoutAdmin', ['title' => 'Categorias']) ?>
+<?php $this->layout('../layouts/layoutAdmin', ['title' => 'Usuarios']) ?>
 <?php $this->start('contenido') ?>
 <div class="page-content bg-light">
     <section>
@@ -6,9 +6,12 @@
             <div class="row">
                 <div class="col-lg-12 mt-2">
                     <div class="row">
+                        <div class="col-lg-4 mb-2">
+                            <a is-modal="true" class="btn btn-dark" href="<?= URL . 'usuario/detail'?>"  data-target=""><i class="fas fa-plus-circle"></i> Nuevo</a>
+                            <a class="btn btn-danger" href="<?= URL . 'usuario/baja'?>"><i class="fas fa-user-slash"></i> Inactivos</a>
+                        </div>
                         <div class="col-lg-6 mb-2">
-                            <a is-modal="true" href="<?= URL . 'categoria/detail'?>" class="btn btn-dark"   ><i class="fas fa-plus-circle"></i> Nuevo</a>
-                            <a class="btn btn-danger" href="<?= URL . 'categoria/baja'?>"><i class="fas fa-user-slash"></i> Inactivos</a>
+                        <h3>USUARIOS</h3>
                         </div>
                     </div>
                     <div class="table-responsive mt-4">
@@ -17,8 +20,13 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
+                                    <th>Dirección</th>
+                                    <th>Usuario</th>
+                                    <th>Correo</th>
+                                    <th>Clave</th>
+                                    <th>Rol</th>
                                     <th>Acciones</th>
+        
                                 </tr>
                             </thead>
                             <tbody >
@@ -26,14 +34,18 @@
                                     <tr>
                                     <td> <?= $this->e($key->id) ?></td>
                                     <td> <?= $this->e($key->nombre) ?></td>
-                                    <td> <?= $this->e($key->descripcion) ?></td>
+                                    <td> <?= $this->e($key->direccion) ?></td>
+                                    <td> <?= $this->e($key->usuario) ?></td>
+                                    <td> <?= $this->e($key->correo) ?></td>
+                                    <td> <?= $this->e($key->clave) ?></td>
+                                    <td> <?= $this->e($key->rol) ?></td>
                                 
-                                        <td style="text-align:center;">
-                                            <a is-modal="true" href="<?= URL . "categoria/detail/{$this->e($key->id)}" ?>" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <form action="<?= URL . "categoria/delete/{$this->e($key->id)}" ?>" method="post" class="d-inline elim">
+                                    <td style="text-align:center;">
+                                            <a is-modal="true" href="<?= URL . "usuario/detail/{$this->e($key->id)}" ?>" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                            <form action="<?= URL . "usuario/delete/{$this->e($key->id)}" ?>" method="post" class="d-inline elim">
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        </td>
+                                    </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -48,8 +60,8 @@
 
 <?php $this->start('myModal') ?>
 
-<?php
-$title = 'Categoría - Insertar';
+<?php 
+$title = 'Usuarios - Insertar';
 $size = GRANDE;
 include MAINPATH . 'app/views/layouts/partialsAdmin/_modalGenerico.php';
 ?>

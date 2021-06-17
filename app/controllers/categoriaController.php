@@ -31,7 +31,6 @@ class CategoriaController extends Controller
     $obj->id = isset($_POST['id']) ? intval($_POST['id']): 0;
     $obj->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
     $obj->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-    
     if (isset($_POST['estado'])) {
       if ($_POST['estado'] == 'on') {
           $obj->estado = true;
@@ -49,7 +48,7 @@ class CategoriaController extends Controller
     }
    
 
-   header('Location:' .URL .'categorias/index');
+   header('Location:' .URL .'categoria/index');
   }
   public function delete($param = null)
   {
@@ -58,6 +57,27 @@ class CategoriaController extends Controller
     if($id>0){
       $this->dao->delete($id);
     }
-    header('Location:' .URL .'categorias/index');
+    header('Location:' .URL .'categoria/index');
+  }
+  public function baja($param = null)
+  {
+    $id= isset($param[0])? $param[0]:0;
+
+    if($id>0){
+      $this->dao->baja($id);
+      header('Location:' .URL .'categori/baja');
+    }else{
+      $data = $this->dao->getAll(false);
+      echo $this->templates->render('baja',['data' => $data]);
+    }
+  }
+  public function alta($param = null)
+  {
+    $id= isset($param[0])? $param[0]:0;
+
+    if($id>0){
+      $this->dao->alta($id);
+      header('Location:' .URL .'categoria/baja');
+    }  
   }
 }
